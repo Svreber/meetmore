@@ -3,6 +3,7 @@ import {EventCRUD} from '@meetmore-lib/EventCRUD';
 import {Event} from '@meetmore-lib/Event';
 import {Participant} from '@meetmore-lib/Participant';
 import * as uuid from 'uuid';
+import {EventEntity} from '../../infrastructure/event/event.entity';
 
 @Injectable()
 export class EventMapper {
@@ -25,14 +26,32 @@ export class EventMapper {
     return event;
   }
 
-  toEventCRUD(event: Event): EventCRUD {
-    const eventCRUD = new EventCRUD();
-    eventCRUD.id = event.id;
-    eventCRUD.name = event.name;
-    eventCRUD.description = event.description;
-    eventCRUD.idealRecurrence = event.idealRecurrence;
+  toEventEntity(eventCRUD: EventCRUD): EventEntity {
+    const eventEntity = new EventEntity();
+    eventEntity.id = eventCRUD.id || uuid.v4();
+    eventEntity.name = eventCRUD.name;
+    eventEntity.description = eventCRUD.description;
+    eventEntity.idealRecurrence = eventCRUD.idealRecurrence;
 
-    eventCRUD.participants = event.participants.map(participant => participant.name);
+    // event.participants = eventCRUD.participants.map(name => {
+    //   // TODO: Retrieve correct participant
+    //   const participant = new Participant();
+    //   participant.id = uuid.v4();
+    //   participant.name = name;
+    //   return participant;
+    // });
+
+    return eventEntity
+  }
+
+  toEventCRUD(eventEntity: EventEntity): EventCRUD {
+    const eventCRUD = new EventCRUD();
+    eventCRUD.id = eventEntity.id;
+    eventCRUD.name = eventEntity.name;
+    eventCRUD.description = eventEntity.description;
+    eventCRUD.idealRecurrence = eventEntity.idealRecurrence;
+    eventCRUD.participants = ['emptyYet'];
+    // eventCRUD.participants = event.participants.map(participant => participant.name);
 
     return eventCRUD;
   }
