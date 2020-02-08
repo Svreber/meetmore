@@ -1,61 +1,50 @@
 <template>
   <div class="event-crud">
 
-    <el-card class="box-card">
+    <el-card class="box-card event-crud-card">
 
-      Create a new Event
+      <h2 class="title">Create a new Event</h2>
 
       <el-form ref="form"
-               label-width="10rem">
+               label-width="7rem">
 
-        <el-form-item label="Event name">
+        <el-form-item label="Event name"
+                      :required="true">
           <el-input v-model="event.name"
-                    placeholder="Event name">
+                    placeholder="Event name"
+                    @input="validate">
           </el-input>
         </el-form-item>
 
         <el-form-item label="Description">
           <el-input v-model="event.description"
+                    :autosize="{minRows: 3, maxRows: 8}"
                     placeholder="Description"
-                    type="textarea">
+                    type="textarea"
+                    @input="validate">
           </el-input>
         </el-form-item>
 
-        <el-form-item label="Recurrence">
-          <el-select v-model="event.idealRecurrence"
-                     placeholder="Recurrence">
-            <el-option v-for="recurrence in recurrences"
-                       :key="recurrence.value"
-                       :label="recurrence.name"
-                       :value="recurrence.value">
-            </el-option>
-          </el-select>
+        <el-form-item label="Recurrence"
+                      :required="true">
+          <mm-select-recurrence v-model="event.idealRecurrence"
+                                @input="validate">
+          </mm-select-recurrence>
         </el-form-item>
 
-        <el-form-item label="Participants">
-
-          <el-input v-model="participant"
-                    placeholder="Add a participant">
-            <el-button icon="el-icon-plus"
-                       slot="append"
-                       @click="addParticipant()">
-            </el-button>
-          </el-input>
-
-          <div v-for="(participant, index) in event.participants" :key="index">
-            <el-button circle
-                       icon="el-icon-delete"
-                       size="mini"
-                       type="danger"
-                       @click="removeParticipant(index)">
-            </el-button>
-            {{participant}}
-          </div>
-
+        <el-form-item label="Participants"
+                      :required="true">
+          <mm-select-participants v-model="event.participants"
+                                  @input="validate">
+          </mm-select-participants>
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="saveEvent()">Create event</el-button>
+          <el-button :disabled="!isValid"
+                     type="primary"
+                     @click="saveEvent()">
+            Create event
+          </el-button>
         </el-form-item>
 
       </el-form>
@@ -68,52 +57,44 @@
 <script lang="ts">
   import {Component, Vue} from 'vue-property-decorator';
   import {EventCRUD} from '../../../lib/src/EventCRUD';
-  import {IDuration} from '@/core/interfaces/IDuration';
   import {EventService} from '@/core/services/EventService';
+  import {RouterService} from '@/core/services/RouterService';
+  import {validate, ValidationError} from 'class-validator';
 
-  @Component({
-    name: EventCRUDComponent.tag
-  })
+  @Component()
   export class EventCRUDComponent extends Vue {
-    static tag = 'mmEventCrud';
 
-    event: EventCRUD = new EventCRUD();
+    errors: Array<ValidationError> = [];
+    event: EventCRUD | null = null;
 
-    recurrences: Array<IDuration> = [{
-      name: '1 week',
-      value: 7
-    }, {
-      name: '2 weeks',
-      value: 14
-    }, {
-      name: '1 month',
-      value: 31
-    }, {
-      name: '2 months',
-      value: 61
-    }, {
-      name: '6 months',
-      value: 183
-    }];
+    async mounted(): void {
+      const eventId = this.$route.params.id;
 
-    participant: string | null = null;
+      if (eventId) {
+        this.event = await EventService.getEvent(eventId);
+      } else {
+        this.event = new EventCRUD();
+      }
 
-    mounted(): void {
-      this.event.participants = [];
+      this.validate();
     }
 
-    addParticipant(): void {
-      this.event.participants.push(this.participant);
-      this.participant = null;
+    async validate(): Promise<void> {
+      this.errors = await validate(this.event);
     }
 
-    removeParticipant(index: number): void {
-      this.$delete(this.event.participants, index);
-      // this.event.participants.splice(index, 1)
+    get isValid(): boolean {
+      return this.errors.length === 0;
+    }
+
+    async isValid(): Promise<boolean> {
+      const errors = await validate(this.event);
+      return errors.length === 0;
     }
 
     async saveEvent(): void {
       this.event = await EventService.createEvent(this.event);
+      RouterService.goToEventEdition(this.event.id);
     }
   }
 
@@ -122,5 +103,22 @@
 
 <style lang="scss" scoped>
   .event-crud {
+
+    .title {
+      margin-bottom: 3rem;
+    }
+
+    .event-crud-card {
+      margin: auto;
+      max-width: 35rem;
+    }
+
+    .participants {
+      margin-top: .5rem;
+    }
+
+    .remove-participant {
+      margin-right: .5rem;
+    }
   }
 </style>

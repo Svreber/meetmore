@@ -9,16 +9,18 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: Home
   }, {
-    path: '/event-crud',
-    name: 'EventCRUD',
-    component: EventCRUDComponent,
-  },
+    path: '/event/create',
+    name: 'eventCreation',
+    component: EventCRUDComponent
+  }, {
+    path: '/event/:id',
+    name: 'eventEdition',
+    component: EventCRUDComponent
+  }
 ];
 
-const router = new VueRouter({
-  routes,
-});
+const router = new VueRouter({routes});
 
 export default router;
