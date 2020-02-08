@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, ParseUUIDPipe, Post} from '@nestjs/common';
 import {EventCrudService} from './event-crud.service';
 import {EventCRUD} from '@meetmore-lib/EventCRUD';
 
@@ -11,6 +11,11 @@ export class EventCrudController {
   @Post()
   async create(@Body() eventCRUD: EventCRUD): Promise<EventCRUD> {
     return this.eventCrudService.save(eventCRUD);
+  }
+
+  @Get(':id')
+  async getOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<EventCRUD> {
+    return this.eventCrudService.getOne(id);
   }
 
   @Get()
