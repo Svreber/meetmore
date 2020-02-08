@@ -5,7 +5,7 @@ import {EventCRUD} from '@meetmore-lib/EventCRUD';
 @Controller('/event/crud')
 export class EventCrudController {
 
-  constructor(private eventCrudService: EventCrudService) {
+  constructor(private readonly eventCrudService: EventCrudService) {
   }
 
   @Post()
