@@ -1,0 +1,5 @@
+{
+  "peerDependencies": {
+    "class-validator": "^0.11.0"
+  }
+}
