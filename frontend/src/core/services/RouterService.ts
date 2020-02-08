@@ -1,9 +1,13 @@
 import router from '@/config/router';
-import {EventId} from '~meetmore-lib/types';
+import {EventId} from '@lib/types';
 
 export class RouterService {
 
   private constructor() {
+  }
+
+  static goToHome(): void {
+    router.push({name: 'home'});
   }
 
   static goToEventCreation(): void {

@@ -19,10 +19,10 @@
       "@/*": [
         "src/*"
       ],
-      "@meetmore-lib": [
+      "@lib": [
         "../lib/src"
       ],
-      "@meetmore-lib/*": [
+      "@lib/*": [
         "../lib/src/*"
       ]
     },

@@ -1,7 +1,6 @@
 import {Participant} from '../Participant';
-import {Date} from '../types';
-import {DateAvailability} from './DateAvailability';
 import {IsNotEmpty, IsObject} from 'class-validator';
+import {DateAvailabilities} from './types';
 
 export class EventAvailabilitiesByParticipant {
 
@@ -15,5 +14,5 @@ export class EventAvailabilitiesByParticipant {
 
   @IsObject()
   @IsNotEmpty()
-  availabilities: Record<Date, DateAvailability>;
+  availabilities: DateAvailabilities;
 }

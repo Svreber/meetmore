@@ -2793,7 +2793,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-class-validator@^0.11.0:
+class-validator@0.11.0:
   version "0.11.0"
   resolved "https://registry.npmjs.org/class-validator/-/class-validator-0.11.0.tgz#5fca8b8a957c738a6749391e03ee81fad375dc4a"
   integrity sha512-niAmmSPFku9xsnpYYrddy8NZRrCX3yyoZ/rgPKOilE5BG0Ma1eVCIxpR4X0LasL/6BzbYzsutG+mSbAXlh4zNw==
@@ -7276,6 +7276,11 @@ mkdirp@0.5.1, mkdirp@0.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+moment@2.24.0:
+  version "2.24.0"
+  resolved "https://registry.npmjs.org/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 move-concurrently@^1.0.1:
   version "1.0.1"

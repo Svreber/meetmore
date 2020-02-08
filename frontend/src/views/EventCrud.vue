@@ -1,7 +1,7 @@
 <template>
   <div class="event-crud">
 
-    <el-card class="box-card event-crud-card">
+    <el-card class="event-crud-card">
 
       <h2 class="title">Create a new Event</h2>
 
@@ -57,12 +57,12 @@
 <script lang="ts">
   import {Component, Vue} from 'vue-property-decorator';
   import {EventCRUD} from '../../../lib/src/EventCRUD';
-  import {EventService} from '@/core/services/EventService';
+  import {EventCrudService} from '@/core/services/EventCrudService';
   import {RouterService} from '@/core/services/RouterService';
   import {validate, ValidationError} from 'class-validator';
 
   @Component()
-  export class EventCRUDComponent extends Vue {
+  export class EventCrud extends Vue {
 
     errors: Array<ValidationError> = [];
     event: EventCRUD | null = null;
@@ -71,7 +71,7 @@
       const eventId = this.$route.params.id;
 
       if (eventId) {
-        this.event = await EventService.getEvent(eventId);
+        this.event = await EventCrudService.getEvent(eventId);
       } else {
         this.event = new EventCRUD();
       }
@@ -87,18 +87,13 @@
       return this.errors.length === 0;
     }
 
-    async isValid(): Promise<boolean> {
-      const errors = await validate(this.event);
-      return errors.length === 0;
-    }
-
     async saveEvent(): void {
-      this.event = await EventService.createEvent(this.event);
+      this.event = await EventCrudService.createEvent(this.event);
       RouterService.goToEventEdition(this.event.id);
     }
   }
 
-  export default EventCRUDComponent;
+  export default EventCrud;
 </script>
 
 <style lang="scss" scoped>

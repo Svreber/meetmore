@@ -1,10 +1,11 @@
 import {IsInt, IsOptional, IsString, IsUUID, Length, Max, Min} from 'class-validator';
+import {EventId} from './types';
 
 export abstract class AbstractEvent {
 
   @IsOptional()
   @IsUUID()
-  id?: string;
+  id?: EventId;
 
   @IsString()
   @Length(3, 50)

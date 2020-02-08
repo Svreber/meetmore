@@ -1,9 +1,9 @@
-import {IsArray, IsNotEmpty} from 'class-validator';
+import {IsArray, ArrayNotEmpty} from 'class-validator';
 import {AbstractEvent} from './AbstractEvent';
 
 export class EventCRUD extends AbstractEvent {
 
   @IsArray()
-  @IsNotEmpty()
+  @ArrayNotEmpty()
   participants: Array<string>;
 }

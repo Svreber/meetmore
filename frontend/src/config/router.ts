@@ -1,23 +1,28 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import EventCRUDComponent from '@/views/EventCRUD.vue';
-import Home from '../views/Home.vue';
+import Home from '@/views/Home.vue';
+import EventCrud from '@/views/EventCrud.vue';
+import EventAnswering from '@/views/EventAnswering.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home
   }, {
     path: '/event/create',
     name: 'eventCreation',
-    component: EventCRUDComponent
+    component: EventCrud
+  }, {
+    path: '/event/crud/:id',
+    name: 'eventEdition',
+    component: EventCrud
   }, {
     path: '/event/:id',
-    name: 'eventEdition',
-    component: EventCRUDComponent
+    name: 'eventAnswering',
+    component: EventAnswering
   }
 ];
 
