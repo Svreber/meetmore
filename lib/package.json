@@ -1,0 +1,8 @@
+{
+  "name": "meetmore-lib",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "class-validator": "^0.11.0"
+  }
+}
