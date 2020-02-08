@@ -4,10 +4,7 @@ import {EventCRUD} from '@meetmore-lib/EventCRUD';
 @Injectable()
 export class EventCrudService {
 
-  async save(event: EventCRUD) {
-
-  }
-
-  async get(id: string) {
+  async save(eventCRUD: EventCRUD): Promise<EventCRUD> {
+    return eventCRUD
   }
 }
