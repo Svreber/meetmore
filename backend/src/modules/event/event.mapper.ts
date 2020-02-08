@@ -17,7 +17,7 @@ export class EventMapper {
     event.participants = eventCRUD.participants.map(name => {
       // TODO: Retrieve correct participant
       const participant = new Participant();
-      participant.id = 'uidd generation';
+      participant.id = uuid.v4();
       participant.name = name;
       return participant;
     });
