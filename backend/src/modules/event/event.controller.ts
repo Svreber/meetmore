@@ -9,6 +9,11 @@ export class EventController {
   constructor(private readonly eventService: EventService) {
   }
 
+  @Get(':id')
+  getOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<Event> {
+    return this.eventService.getOne(id);
+  }
+
   @Get()
   getAll(): Promise<Array<Event>> {
     return this.eventService.getAll();

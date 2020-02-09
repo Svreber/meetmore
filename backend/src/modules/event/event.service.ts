@@ -16,13 +16,19 @@ export class EventService {
               private readonly viewMapper: ViewMapper) {
   }
 
+  async getOne(eventId: string): Promise<Event> {
+    const entity = await this.eventRepository.findOne(eventId, {relations: ['participants', 'availabilities']});
+    throwIfUndefined(entity, new NotFoundException());
+    return this.viewMapper.toEvent(entity);
+  }
+
   async getAll(): Promise<Array<Event>> {
     const eventEntities = await this.eventRepository.find();
     return eventEntities.map(eventEntity => this.viewMapper.toEvent(eventEntity));
   }
 
   async getAvailabilitiesByParticipant(eventId: string, participantId: string): Promise<EventAvailabilitiesByParticipant> {
-    const eventEntity = await this.eventRepository.findOne({id: eventId});
+    const eventEntity = await this.eventRepository.findOne( eventId, {relations: ['participants', 'availabilities']});
     throwIfUndefined(eventEntity, new NotFoundException());
 
     const participantEntity = await this.participantRepository.findOne({id: participantId});
