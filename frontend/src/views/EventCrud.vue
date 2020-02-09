@@ -3,7 +3,14 @@
 
     <el-card class="event-crud-card">
 
-      <h2 class="title">Create a new Event</h2>
+      <h2 v-if="!event.id"
+          class="title">
+        Create a new event
+      </h2>
+      <h2 v-if="event.id"
+          class="title">
+        Edit your event
+      </h2>
 
       <el-form ref="form"
                label-width="7rem">
@@ -40,10 +47,21 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button :disabled="!isValid"
+          <el-button v-if="!event.id"
+                     :disabled="!isValid"
                      type="primary"
                      @click="saveEvent()">
-            Create event
+            Create an event
+          </el-button>
+          <el-button v-if="event.id"
+                     :disabled="!isValid"
+                     @click="updateEvent()">
+            Update this event
+          </el-button>
+          <el-button v-if="event.id"
+                     type="primary"
+                     @click="viewEvent()">
+            View this event
           </el-button>
         </el-form-item>
 
@@ -67,11 +85,15 @@
     errors: Array<ValidationError> = [];
     event: EventCRUD | null = null;
 
-    async mounted(): void {
+    async created(): Promise<void> {
       const eventId = this.$route.params.id;
 
       if (eventId) {
-        this.event = await EventCrudService.getEvent(eventId);
+        try {
+          this.event = await EventCrudService.getEvent(eventId);
+        } catch {
+          // TODO Error handling
+        }
       } else {
         this.event = new EventCRUD();
       }
@@ -87,9 +109,25 @@
       return this.errors.length === 0;
     }
 
-    async saveEvent(): void {
-      this.event = await EventCrudService.createEvent(this.event);
-      RouterService.goToEventEdition(this.event.id);
+    async saveEvent(): Promise<void> {
+      try {
+        this.event = await EventCrudService.createEvent(this.event);
+        RouterService.goToEventEdition(this.event.id);
+      } catch {
+        // TODO Error handling
+      }
+    }
+
+    async updateEvent(): Promise<void> {
+      try {
+        this.event = await EventCrudService.updateEvent(this.event);
+      } catch {
+        // TODO Error handling
+      }
+    }
+
+    viewEvent(): void {
+      RouterService.goToEventView(this.event.id);
     }
   }
 

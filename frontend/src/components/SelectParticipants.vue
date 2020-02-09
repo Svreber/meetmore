@@ -42,6 +42,10 @@
     internalValue: Array<string> = [];
     participant: string | null = null;
 
+    beforeMount(): void {
+      this.onValueChanged();
+    }
+
     @Watch('value')
     onValueChanged(): void {
       this.internalValue = this.value || [];

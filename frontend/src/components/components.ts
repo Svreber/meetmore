@@ -1,10 +1,20 @@
 import Vue from 'vue';
-import DayOfCalendar from '@/components/DayOfCalendar.vue';
-import MonthCalendar from '@/components/MonthCalendar.vue';
+import DayCalendarInput from '@/components/calendar/DayCalendarInput.vue';
+import DayCalendarResults from '@/components/calendar/DayCalendarResults.vue';
+import EventCalendarInput from '@/components/calendar/EventCalendarInput.vue';
+import EventCalendarResults from '@/components/calendar/EventCalendarResults.vue';
+import MonthCalendarInput from '@/components/calendar/MonthCalendarInput.vue';
+import MonthCalendarResults from '@/components/calendar/MonthCalendarResults.vue';
+import ParticipantTag from '@/components/ParticipantTag.vue';
 import SelectParticipants from '@/components/SelectParticipants.vue';
 import SelectRecurrence from '@/components/SelectRecurrence.vue';
 
-Vue.component(DayOfCalendar.tag, DayOfCalendar);
-Vue.component(MonthCalendar.tag, MonthCalendar);
+Vue.component(DayCalendarInput.tag, DayCalendarInput);
+Vue.component(DayCalendarResults.tag, DayCalendarResults);
+Vue.component(EventCalendarInput.tag, EventCalendarInput);
+Vue.component(EventCalendarResults.tag, EventCalendarResults);
+Vue.component(MonthCalendarInput.tag, MonthCalendarInput);
+Vue.component(MonthCalendarResults.tag, MonthCalendarResults);
+Vue.component(ParticipantTag.tag, ParticipantTag);
 Vue.component(SelectParticipants.tag, SelectParticipants);
 Vue.component(SelectRecurrence.tag, SelectRecurrence);

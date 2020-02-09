@@ -42,6 +42,10 @@
       value: 183
     }];
 
+    beforeMount(): void {
+      this.onValueChanged();
+    }
+
     @Watch('value')
     onValueChanged(): void {
       this.internalValue = this.value;

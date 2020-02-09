@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '@/views/Home.vue';
 import EventCrud from '@/views/EventCrud.vue';
 import EventAnswering from '@/views/EventAnswering.vue';
+import EventView from '@/views/EventView.vue';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,10 @@ const routes = [
     component: EventCrud
   }, {
     path: '/event/:id',
+    name: 'eventView',
+    component: EventView
+  }, {
+    path: '/event/:eventId/participant/:participantId',
     name: 'eventAnswering',
     component: EventAnswering
   }

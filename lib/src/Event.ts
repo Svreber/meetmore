@@ -1,9 +1,8 @@
 import {IsArray, IsNotEmpty, IsObject, IsUUID} from 'class-validator';
 import {AbstractEvent} from './AbstractEvent';
 import {Participant} from './Participant';
-import {Date} from './types';
-import {ParticipantAvailability} from './availability/ParticipantAvailability';
 import {EventId} from './types';
+import {ParticipantsAvailabilities} from './availability/types';
 
 export class Event extends AbstractEvent {
   protected _type = 'Event';
@@ -17,5 +16,5 @@ export class Event extends AbstractEvent {
 
   @IsObject()
   @IsNotEmpty()
-  availabilities: Record<Date, Array<ParticipantAvailability>>;
+  availabilities: ParticipantsAvailabilities;
 }

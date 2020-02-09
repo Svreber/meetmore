@@ -22,3 +22,10 @@
 
   export default Home;
 </script>
+
+<style lang="scss" scoped>
+  .home {
+    padding-top: 25%;
+    text-align: center;
+  }
+</style>

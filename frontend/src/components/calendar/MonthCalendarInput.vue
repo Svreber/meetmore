@@ -1,7 +1,7 @@
 <template>
   <el-card class="month-calendar">
 
-    <h2 class="title-month">{{yearMonthStr}}</h2>
+    <h2 class="title-month">{{calendarTitle}}</h2>
 
     <table>
       <tr>
@@ -12,13 +12,18 @@
       </tr>
       <tr v-for="(week, index) in monthCalendar" :key="index">
         <td v-for="(date, index) in week" :key="index">
-          <mm-day-of-calendar v-model="internalValue[getDateStr(date)]"
-                              :date="date"
-                              :month="month">
-          </mm-day-of-calendar>
+          <mm-day-calendar-input v-model="internalValue[getDateStr(date)]"
+                                 :date="date"
+                                 :month="month">
+          </mm-day-calendar-input>
         </td>
       </tr>
     </table>
+
+    <div class="buttons-container">
+      <el-button @click="markAllAvailabilitiesAsStatus(AvailabilityStatus.PRESENT)">Mark all Present</el-button>
+      <el-button @click="markAllAvailabilitiesAsStatus(AvailabilityStatus.ABSENT)">Mark all Absent</el-button>
+    </div>
 
   </el-card>
 </template>
@@ -26,16 +31,24 @@
 <script lang="ts">
   import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
   import {Moment} from 'moment';
-  import {CalendarService} from '@/core/services/CalendarService';
-  import {DateAvailabilities} from '@lib/availability/types';
-  import {MonthlyCalendar} from '@/core/interfaces/MonthlyCalendar';
+  import {CalendarService} from '../../core/services/CalendarService';
+  import {DateAvailabilities} from '../../../../lib/src/availability/types';
+  import {MonthlyCalendar} from '../../core/interfaces/MonthlyCalendar';
+
+  // import {AvailabilityStatus} from '@lib/availability/AvailabilityStatus';
+  enum AvailabilityStatus {
+    PRESENT = 'present',
+    ABSENT = 'absent',
+    NO_REPLY = 'no_reply'
+  } // FIXME
 
   @Component({
-    name: MonthCalendar.tag
+    name: MonthCalendarInput.tag
   })
-  export class MonthCalendar extends Vue {
-    static tag = 'mmMonthCalendar';
+  export class MonthCalendarInput extends Vue {
+    static tag = 'mmMonthCalendarInput';
 
+    readonly AvailabilityStatus = AvailabilityStatus;
     readonly WEEK_DAYS = CalendarService.WEEK_DAYS;
 
     @Prop({required: true})
@@ -67,13 +80,17 @@
       return CalendarService.getDateStr(date);
     }
 
-    get yearMonthStr(): string {
+    get calendarTitle(): string {
       return CalendarService.getYearMonthDate(this.year, this.month)
         .format('MMMM YYYY');
     }
+
+    markAllAvailabilitiesAsStatus(newStatus: AvailabilityStatus): void {
+      CalendarService.markAllAvailabilitiesAsStatus(this.internalValue, this.year, this.month, newStatus);
+    }
   }
 
-  export default MonthCalendar;
+  export default MonthCalendarInput;
 </script>
 
 <style lang="scss" scoped>
@@ -87,6 +104,10 @@
       font-size: .8rem;
       padding: .8rem;
       text-align: center;
+    }
+
+    .buttons-container {
+      margin-top: 1.5rem;
     }
   }
 </style>

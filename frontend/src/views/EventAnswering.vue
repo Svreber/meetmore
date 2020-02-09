@@ -1,23 +1,27 @@
 <template>
   <div class="event-answering">
 
-    <mm-month-calendar v-model="availabilities"
-                       class="calendar-item"
-                       :month="0"
-                       :year="2020">
-    </mm-month-calendar>
+    <template v-if="event">
 
-    <mm-month-calendar v-model="availabilities"
-                       class="calendar-item"
-                       :month="1"
-                       :year="2020">
-    </mm-month-calendar>
+      <el-card>
 
-    <mm-month-calendar v-model="availabilities"
-                       class="calendar-item"
-                       :month="2"
-                       :year="2020">
-    </mm-month-calendar>
+        <h2>{{event.name}}</h2>
+
+        <div>{{event.description}}</div>
+
+        <el-button type="primary"
+                   @click="saveAvailabilities()">
+          Save
+        </el-button>
+
+      </el-card>
+
+      <mm-event-calendar-input :event="event"
+                               :eventAvailabilities="eventAvailabilities"
+                               :participant="participant">
+      </mm-event-calendar-input>
+
+    </template>
 
   </div>
 </template>
@@ -27,21 +31,44 @@
   import {Event} from '../../../lib/src/Event';
   import {RouterService} from '@/core/services/RouterService';
   import {EventService} from '@/core/services/EventService';
-  import {DateAvailabilities} from '@lib/availability/types';
+  import {Participant} from '@lib/Participant';
+  import {EventAvailabilitiesByParticipant} from '@lib/availability/EventAvailabilitiesByParticipant';
 
   @Component()
   export class EventAnswering extends Vue {
 
     event: Event | null = null;
-    availabilities: DateAvailabilities = {};
+    eventAvailabilities: EventAvailabilitiesByParticipant | null = null;
+    participant: Participant | null = null;
 
     async mounted(): Promise<void> {
-      const eventId = this.$route.params.id;
+      const eventId = this.$route.params.eventId;
+      const participantId = this.$route.params.participantId;
 
       if (eventId) {
-        this.event = await EventService.getEvent(eventId);
+        try {
+          this.event = await EventService.getEvent(eventId);
+          this.participant = this.event.participants.find(participant => participant.id = participantId);
+          if (!this.participant) {
+            // TODO Error handling
+            RouterService.goToEventView(this.event.id);
+          }
+
+          this.eventAvailabilities = await EventService.getEventAvailabilitiesForParticipant(this.event.id, this.participant.id);
+        } catch {
+          // TODO Error message
+        }
       } else {
         RouterService.goToHome();
+      }
+    }
+
+    async saveAvailabilities(): Promise<void> {
+      try {
+        await EventService.saveEventAvailabilitiesForParticipant(this.event.id, this.participant.id, this.eventAvailabilities.availabilities);
+        // TODO: Success message
+      } catch {
+        // TODO: Error handling
       }
     }
   }

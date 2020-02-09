@@ -21,6 +21,12 @@ export class EventCrudService {
       .then(eventCrudDto => this.instantiateEvent(eventCrudDto));
   }
 
+  static updateEvent(event: EventCRUD): Promise<EventCRUD> {
+    return axios.put<Partial<EventCRUD>>(`${ApiService.API_URL}/event/crud`, event)
+      .then(response => response.data)
+      .then(eventCrudDto => this.instantiateEvent(eventCrudDto));
+  }
+
   static instantiateEvent(eventCrudDto: Partial<EventCRUD>): EventCRUD {
     return plainToClass(EventCRUD, eventCrudDto);
   }
