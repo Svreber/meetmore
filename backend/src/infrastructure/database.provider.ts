@@ -2,6 +2,7 @@ import { SnakeNamingStrategy } from '../core/utils/snake-naming-strategy';
 import {ParticipantEntity} from './participant/participant.entity';
 import {EventEntity} from './event/event.entity';
 import {Connection, createConnection} from 'typeorm';
+import {AvailabilityEntity} from './availability/availability.entity';
 
 export class MeetmoreConnection extends Connection {
 }
@@ -14,8 +15,9 @@ export const MeetmoreConnectionProvider = {
     type: 'sqlite',
     database: 'meetmore.sqlite3',
     entities: [
-      ParticipantEntity,
-      EventEntity
+      AvailabilityEntity,
+      EventEntity,
+      ParticipantEntity
     ],
     namingStrategy: new SnakeNamingStrategy(),
     synchronize: true

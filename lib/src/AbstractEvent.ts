@@ -2,6 +2,7 @@ import {IsInt, IsOptional, IsString, IsUUID, Length, Max, Min} from 'class-valid
 import {EventId} from './types';
 
 export abstract class AbstractEvent {
+  protected _type = 'AbstractEvent';
 
   @IsOptional()
   @IsUUID()

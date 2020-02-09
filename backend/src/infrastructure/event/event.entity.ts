@@ -1,9 +1,11 @@
-import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
 import {AbstractEvent} from '@meetmore-lib/AbstractEvent';
 import {ParticipantEntity} from '../participant/participant.entity';
+import {AvailabilityEntity} from '../availability/availability.entity';
 
 @Entity('event')
 export class EventEntity extends AbstractEvent {
+  protected _type  = 'EventEntity';
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -23,4 +25,7 @@ export class EventEntity extends AbstractEvent {
   })
   @JoinTable({name: "join_event_participant"})
   participants: Array<ParticipantEntity>;
+
+  @OneToMany(type => AvailabilityEntity, availability => availability.event)
+  availabilities: Array<AvailabilityEntity>;
 }
