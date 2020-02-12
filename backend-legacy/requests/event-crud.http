@@ -1,0 +1,70 @@
+POST http://localhost:3000/event/crud HTTP/1.1
+content-type: application/json
+
+{
+  "name": "sample",
+  "description": "description",
+  "idealRecurrence": 3,
+  "participants": ["Luca", "Sven", "Tobias"]
+}
+
+###
+PUT http://localhost:3000/event/crud HTTP/1.1
+content-type: application/json
+
+{
+  "id": "6bf060e5-d0b4-4e1e-9752-e15718cc46a1",
+  "name": "sample",
+  "description": "description",
+  "idealRecurrence": 3,
+  "participants": ["Sven", "Tobias", "Chloe"]
+}
+
+###
+PUT http://localhost:3000/event/crud HTTP/1.1
+content-type: application/json
+
+{
+  "id": "6bf060e5-d0b4-4e1e-9752-e15718cc46a1",
+  "name": "sample",
+  "description": "description",
+  "idealRecurrence": 3,
+  "participants": ["Sven", "Luca", "Tobias"]
+}
+
+###
+GET http://localhost:3000/event/crud HTTP/1.1
+content-type: application/json
+
+###
+
+GET http://localhost:3000/event/ddf2f828-7692-4fba-8e02-a282f1afb1b8 HTTP/1.1
+content-type: application/json
+
+###
+
+GET http://localhost:3000/event/ddf2f828-7692-4fba-8e02-a282f1afb1b8/participant/ed67592e-3edb-4459-85d1-a9d062027c0c HTTP/1.1
+content-type: application/json
+
+###
+
+PUT http://localhost:3000/event/ddf2f828-7692-4fba-8e02-a282f1afb1b8/participant/ed67592e-3edb-4459-85d1-a9d062027c0c HTTP/1.1
+content-type: application/json
+
+{
+  "2020-02-13": {
+    "status": "PRESENT",
+    "date": "2020-02-13"
+  },
+ "2020-02-14": {
+    "status": "ABSENT",
+    "date": "2020-02-14"
+  }
+}
+###
+
+
+GET http://localhost:3000/event/blabla/bloblo HTTP/1.1
+content-type: application/json
+
+###
