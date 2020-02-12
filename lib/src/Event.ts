@@ -5,7 +5,7 @@ import {EventId} from './types';
 import {ParticipantsAvailabilities} from './availability/types';
 
 export class Event extends AbstractEvent {
-  protected _type = 'Event';
+  protected __nominal: void;
 
   @IsUUID()
   id: EventId;

@@ -3,7 +3,7 @@ import {IsEnum, IsISO8601, IsNotEmpty} from 'class-validator';
 import {Date} from '../types';
 
 export class DateAvailability {
-  protected _type = 'DateAvailability';
+  protected __nominal: void;
 
   @IsISO8601()
   @IsNotEmpty()

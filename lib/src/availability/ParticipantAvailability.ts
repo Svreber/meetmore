@@ -3,7 +3,7 @@ import {AvailabilityStatus} from './AvailabilityStatus';
 import {IsEnum, IsNotEmpty, IsObject} from 'class-validator';
 
 export class ParticipantAvailability {
-  protected _type = 'ParticipantAvailability';
+  protected __nominal: void;
 
   @IsObject()
   @IsNotEmpty()

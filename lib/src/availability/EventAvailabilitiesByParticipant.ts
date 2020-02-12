@@ -4,7 +4,7 @@ import {DateAvailabilities} from './types';
 import {Event} from '../Event';
 
 export class EventAvailabilitiesByParticipant {
-  protected _type = 'EventAvailabilitiesByParticipant';
+  protected __nominal: void;
 
   @IsObject()
   @IsNotEmpty()

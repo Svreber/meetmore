@@ -2,7 +2,7 @@ import {IsArray, ArrayNotEmpty} from 'class-validator';
 import {AbstractEvent} from './AbstractEvent';
 
 export class EventCRUD extends AbstractEvent {
-  protected _type = 'EventCRUD';
+  protected __nominal: void;
 
   @IsArray()
   @ArrayNotEmpty()
