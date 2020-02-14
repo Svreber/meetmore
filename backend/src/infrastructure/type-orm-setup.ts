@@ -12,9 +12,10 @@ export const TypeOrmForRootAsync = TypeOrmModule.forRootAsync({
       EventEntity
     ],
     namingStrategy: new SnakeNamingStrategy(),
-    synchronize: true
-  })});
-
+    synchronize: true,
+    keepConnectionAlive: true
+  })
+});
 
 export const TypeOrmForFeature = TypeOrmModule.forFeature([
   EventRepository
