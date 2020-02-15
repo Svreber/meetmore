@@ -1,10 +1,20 @@
-import {Body, Controller, Get, Param, ParseUUIDPipe, Post, Put, UnprocessableEntityException} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  Put,
+  Query,
+  UnprocessableEntityException
+} from '@nestjs/common';
 import {EventCrudService} from './event-crud.service';
 import {EventCRUD} from '@meetmore/lib/EventCRUD';
 import {WithId, WithoutId} from '../../core/IdValidator';
 import {throwIfNotEqual} from '../../core/utils';
 
-@Controller('event/crud')
+@Controller('event-crud')
 export class EventCrudController {
 
   constructor(private readonly eventCrudService: EventCrudService) {
