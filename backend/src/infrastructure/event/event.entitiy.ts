@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {ParticipantEntity} from '../participant/participant.entity';
 
 @Entity('event')
 export class EventEntity {
@@ -13,4 +14,11 @@ export class EventEntity {
 
   @Column()
   idealRecurrence: number;
+
+  @ManyToMany(type => ParticipantEntity, participant => participant.events, {
+    // FIXME: When we will have proper creation of user we won't need it
+    cascade: ['insert']
+  })
+  @JoinTable({name: "join_event_participant"})
+  participants: Array<ParticipantEntity>;
 }
