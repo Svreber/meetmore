@@ -11,8 +11,7 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@meetmore/lib": ["../lib/src"],
-      "@meetmore/lib/*": ["../lib/src/*"]
+      "@meetmore/lib": ["../lib/src/index"]
     }
   },
   "exclude": ["node_modules", "dist"]

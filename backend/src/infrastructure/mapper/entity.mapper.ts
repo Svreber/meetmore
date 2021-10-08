@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
-import {EventCRUD} from '@meetmore/lib/EventCRUD';
 import {EventEntity} from '../event/event.entitiy';
 import {ParticipantEntity} from '../participant/participant.entity';
+import { EventCRUD } from '@meetmore/lib';
 
 @Injectable()
 export class EntityMapper {

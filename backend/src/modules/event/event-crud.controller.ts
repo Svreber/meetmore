@@ -10,7 +10,7 @@ import {
   UnprocessableEntityException
 } from '@nestjs/common';
 import {EventCrudService} from './event-crud.service';
-import {EventCRUD} from '@meetmore/lib/EventCRUD';
+import {EventCRUD} from '@meetmore/lib';
 import {WithId, WithoutId} from '../../core/IdValidator';
 import {throwIfNotEqual} from '../../core/utils';
 

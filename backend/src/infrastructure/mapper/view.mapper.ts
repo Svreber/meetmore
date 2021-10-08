@@ -1,10 +1,8 @@
 import {Injectable} from '@nestjs/common';
 import { EventEntity } from '../event/event.entitiy';
-import {EventCRUD} from '@meetmore/lib/EventCRUD';
 import {throwIfUndefined} from '../../core/utils';
-import {Event} from '@meetmore/lib/Event';
-import {Participant} from '@meetmore/lib/Participant';
 import {ParticipantEntity} from '../participant/participant.entity';
+import { EventCRUD, Event, Participant } from '@meetmore/lib';
 
 @Injectable()
 export class ViewMapper {
@@ -29,7 +27,7 @@ export class ViewMapper {
     view.description = entity.description;
     view.idealRecurrence = entity.idealRecurrence;
     view.participants = entity.participants.map(entity => this.toParticipant(entity));
-    view.availabilities = {}
+    view.availabilities = {};
     return view;
   }
 

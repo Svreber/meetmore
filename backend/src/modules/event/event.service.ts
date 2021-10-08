@@ -1,6 +1,6 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {EventRepository} from '../../infrastructure/event/event.repository';
-import {Event} from '@meetmore/lib/Event';
+import {Event} from '@meetmore/lib';
 import {throwIfUndefined} from '../../core/utils';
 import {ViewMapper} from '../../infrastructure/mapper/view.mapper';
 

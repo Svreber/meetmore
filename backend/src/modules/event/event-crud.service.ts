@@ -1,10 +1,10 @@
-import {HttpException, Injectable, NotFoundException} from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import {EventRepository} from '../../infrastructure/event/event.repository';
-import {EventCRUD} from '@meetmore/lib/EventCRUD';
 import { ViewMapper } from 'src/infrastructure/mapper/view.mapper';
 import {throwIfUndefined} from '../../core/utils';
 import {EntityMapper} from '../../infrastructure/mapper/entity.mapper';
 import {ParticipantService} from '../participant/participant.service';
+import { EventCRUD } from '@meetmore/lib';
 
 @Injectable()
 export class EventCrudService {

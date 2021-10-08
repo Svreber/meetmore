@@ -1,5 +1,6 @@
-import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
 import {ParticipantEntity} from '../participant/participant.entity';
+import {AvailabilityEntity} from '../availability/availability.entity';
 
 @Entity('event')
 export class EventEntity {
@@ -21,4 +22,7 @@ export class EventEntity {
   })
   @JoinTable({name: "join_event_participant"})
   participants: Array<ParticipantEntity>;
+
+  @OneToMany(type => AvailabilityEntity, availability => availability.event)
+  availabilities: Array<AvailabilityEntity>;
 }
